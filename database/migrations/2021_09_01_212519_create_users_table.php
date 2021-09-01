@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
       $table->id();
       $table->string('fname');
       $table->string('lname');
-      $table->string('role');
+      $table->string('role')->default('user');
       $table->string('email')->unique();
       $table->timestamp('email_verified_at')->nullable();
       $table->string('password');
