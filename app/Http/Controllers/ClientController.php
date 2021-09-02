@@ -2,84 +2,74 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreClientRequest;
+use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+
+  public function index()
+  {
+    $clients = Client::paginate(20);
+
+    return view('clients.index', compact('clients'));
+  }
+
+
+  public function create()
+  {
+    return view('clients.create');
+  }
+
+
+  public function store(StoreClientRequest $request)
+  {
+    $data = $request->validated();
+
+    Client::create($data);
+
+    return redirect()->route('clients.index')
+      ->with('message', 'client created successfully');
+  }
+
+
+  public function show(Client $client)
+  {
+    //
+  }
+
+
+  public function edit(Client $client)
+  {
+    return view('clients.edit', compact('client'));
+  }
+
+
+  public function update(UpdateClientRequest $request, Client $client)
+  {
+    $data = $request->validated();
+
+    $client->update($data);
+
+    return redirect()->route('clients.index')
+      ->with('message', 'client updated successfully');
+  }
+
+
+  public function destroy(Client $client)
+  {
+    if(($client->loadCount(['projects' => function ($query) {
+      $query->whereIn('status', ['open', 'in progress', 'pending', 'waiting client']);
+    }]) != 0)) {
+      return redirect()->route('clients.index')
+        ->with('message', 'This client cannot be deleted because he has projects or tasks assigned to him!');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    $client->delete();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
-    {
-        //
-    }
+    return redirect()->route('clients.index')
+      ->with('message', 'client deleted successfully');
+  }
 }

@@ -21,6 +21,8 @@ class Project extends Model
     'client_id'
   ];
 
+  protected $with = ['user', 'client', 'tasks'];
+
   public function user()
   {
     return $this->belongsTo(User::class);
