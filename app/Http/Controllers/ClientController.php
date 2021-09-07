@@ -60,9 +60,11 @@ class ClientController extends Controller
 
   public function destroy(Client $client)
   {
-    if(($client->loadCount(['projects' => function ($query) {
+    $client->loadCount(['projects' => function ($query) {
       $query->whereIn('status', ['open', 'in progress', 'pending', 'waiting client']);
-    }]) != 0)) {
+    }]);
+
+    if(($client->projects_count != 0)) {
       return redirect()->route('clients.index')
         ->with('message', 'This client cannot be deleted because he has projects or tasks assigned to him!');
     }

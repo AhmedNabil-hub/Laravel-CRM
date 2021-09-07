@@ -10,32 +10,32 @@
             <div class="card-body">
                 <div class="form-group">
                     <label class="required" for="contact_name">Name</label>
-                    <input class="form-control {{ $errors->has('contact_name') ? 'is-invalid' : '' }}" type="text" name="contact_name" id="contact_name" value="{{ old('contact_name') }}" required>
-                    @if($errors->has('contact_name'))
+                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name') }}" required>
+                    @if($errors->has('name'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('contact_name') }}
+                            {{ $errors->first('name') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
                 </div>
 
                 <div class="form-group">
-                    <label class="required" for="contact_email">Email</label>
-                    <input class="form-control {{ $errors->has('contact_email') ? 'is-invalid' : '' }}" type="text" name="contact_email" id="contact_email" value="{{ old('contact_email') }}" required>
-                    @if($errors->has('contact_email'))
+                    <label class="required" for="email">Email</label>
+                    <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="text" name="email" id="email" value="{{ old('email') }}" required>
+                    @if($errors->has('email'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('contact_email') }}
+                            {{ $errors->first('email') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
                 </div>
 
                 <div class="form-group">
-                    <label for="contact_phone_number">Phone number</label>
-                    <input class="form-control {{ $errors->has('contact_phone_number') ? 'is-invalid' : '' }}" type="text" name="contact_phone_number" id="contact_phone_number" value="{{ old('contact_phone_number') }}">
-                    @if($errors->has('contact_phone_number'))
+                    <label for="phone_number">Phone number</label>
+                    <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number') }}">
+                    @if($errors->has('phone_number'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('contact_phone_number') }}
+                            {{ $errors->first('phone_number') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>

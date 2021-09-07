@@ -39,7 +39,7 @@
             <i class="fas fa-fw fa-bars"></i>
         </button>
 
-        @include('partials.user-dropdown')
+        {{-- @include('partials.user-dropdown') --}}
     </header>
     <div class="c-body">
         <main class="c-main">
