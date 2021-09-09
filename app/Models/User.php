@@ -33,6 +33,8 @@ class User extends Authenticatable
     'email_verified_at' => 'datetime',
   ];
 
+  const ROLE = ['user', 'admin'];
+
   public function tasks()
   {
     return $this->hasMany(Task::class);

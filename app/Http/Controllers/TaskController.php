@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Client;
+use App\Models\Project;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -20,7 +23,11 @@ class TaskController extends Controller
 
   public function create()
   {
-    return view('tasks.create');
+    $users = User::all();
+    $clients = Client::all();
+    $projects = Project::all();
+
+    return view('tasks.create', compact('users', 'clients', 'projects'));
   }
 
 
@@ -43,7 +50,11 @@ class TaskController extends Controller
 
   public function edit(Task $task)
   {
-    return view('tasks.edit', compact('task'));
+    $users = User::all();
+    $clients = Client::all();
+    $projects = Project::all();
+
+    return view('tasks.edit', compact('task', 'users', 'clients', 'projects'));
   }
 
 
@@ -60,8 +71,11 @@ class TaskController extends Controller
 
   public function destroy(Task $task)
   {
-    if(($task->loadCount('user') != 0)
-      || ($task->loadCount('project') != 0)) {
+    $task->loadCount('user');
+    $task->loadCount('project');
+
+    if(($task->user_count != 0)
+      || ($task->project_count != 0)) {
       return redirect()->route('tasks.index')
         ->with('message', 'This task cannot be deleted because it is assigned to projects or users!');
     }

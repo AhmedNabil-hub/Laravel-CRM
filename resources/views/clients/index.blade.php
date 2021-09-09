@@ -18,6 +18,12 @@
                     {{ session('status') }}
                 </div>
             @endif
+            
+            @if (session('message'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
 
             <table class="table table-responsive-sm table-striped">
                 <thead>

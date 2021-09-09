@@ -5,15 +5,26 @@
         <div class="card-header">Create user</div>
 
         <div class="card-body">
-            <form action="{{ route('users.store') }}">
+            <form method="POST" action="{{ route('users.store') }}">
                 @csrf
 
                 <div class="form-group">
-                    <label class="required" for="name">Name</label>
-                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name') }}" required>
-                    @if($errors->has('name'))
+                    <label class="required" for="fname">First Name</label>
+                    <input class="form-control {{ $errors->has('fname') ? 'is-invalid' : '' }}" type="text" name="fname" id="fname" value="{{ old('fname') }}" required>
+                    @if($errors->has('fname'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('name') }}
+                            {{ $errors->first('fname') }}
+                        </div>
+                    @endif
+                    <span class="help-block"> </span>
+                </div>
+
+                <div class="form-group">
+                    <label class="required" for="lname">Last Name</label>
+                    <input class="form-control {{ $errors->has('lname') ? 'is-invalid' : '' }}" type="text" name="lname" id="lname" value="{{ old('lname') }}" required>
+                    @if($errors->has('lname'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('lname') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
@@ -31,26 +42,44 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" type="text" name="address" id="address" value="{{ old('address') }}">
-                    @if($errors->has('address'))
+                    <label class="required" for="password">Password</label>
+                    <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password" value="{{ old('password') }}" required>
+                    @if($errors->has('password'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('address') }}
+                            {{ $errors->first('password') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone_number">Phone number</label>
-                    <input class="form-control {{ $errors->has('phone_number') ? 'is-invalid' : '' }}" type="text" name="phone_number" id="phone_number" value="{{ old('phone_number') }}">
-                    @if($errors->has('phone_number'))
+                    <label class="required" for="password_confirmation">Password Confirmation</label>
+                    <input class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}" type="password" name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}" required>
+                    @if($errors->has('password_confirmation'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('phone_number') }}
+                            {{ $errors->first('password_confirmation') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
                 </div>
+
+                <div class="form-group">
+                  <label for="role">Role</label>
+                  <select class="form-control {{ $errors->has('role') ? 'is-invalid' : '' }}" name="role"
+                          id="role" required>
+                      @foreach(App\Models\User::ROLE as $role)
+                          <option value="{{ $role }}">
+                            {{ ucfirst($role) }}
+                          </option>
+                      @endforeach
+                  </select>
+                  @if($errors->has('role'))
+                      <div class="invalid-feedback">
+                          {{ $errors->first('role') }}
+                      </div>
+                  @endif
+                  <span class="help-block"> </span>
+              </div>
 
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">

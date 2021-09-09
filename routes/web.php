@@ -19,6 +19,8 @@ Route::middleware(['auth'])->group(function () {
   Route::resource('clients', ClientController::class);
   Route::resource('projects', ProjectController::class);
   Route::resource('tasks', TaskController::class);
+
+  Route::post('users/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 });
 
 

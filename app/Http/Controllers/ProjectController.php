@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Client;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -20,7 +22,10 @@ class ProjectController extends Controller
 
   public function create()
   {
-    return view('projects.create');
+    $users = User::all();
+    $clients = Client::all();
+
+    return view('projects.create', compact('users', 'clients'));
   }
 
 
@@ -43,7 +48,10 @@ class ProjectController extends Controller
 
   public function edit(Project $project)
   {
-    return view('projects.edit', compact('project'));
+    $users = User::all();
+    $clients = Client::all();
+
+    return view('projects.edit', compact('project', 'users', 'clients'));
   }
 
 
@@ -60,11 +68,15 @@ class ProjectController extends Controller
 
   public function destroy(Project $project)
   {
-    if(($project->loadCount('user') != 0)
-      || ($project->loadCount(['tasks' => function ($query) {
-        $query->whereIn('status', ['open', 'in progress']);
-      }]) != 0)
-      || ($project->loadCount('client') != 0)) {
+    $project->loadCount('user');
+    $project->loadCount(['tasks' => function ($query) {
+      $query->whereIn('status', ['open', 'in progress']);
+    }]);
+    $project->loadCount('client');
+
+    if(($project->user_count != 0)
+      || ($project->tasks_count != 0)
+      || ($project->client_count != 0)) {
       return redirect()->route('projects.index')
         ->with('message', 'This project cannot be deleted because it is assigned to clients or users or has running tasks!');
     }

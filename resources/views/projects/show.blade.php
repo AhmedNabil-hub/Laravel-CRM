@@ -9,9 +9,9 @@
 
                 <div class="card-body d-flex justify-content-between">
                     <div>
-                        <div class="text-primary">{{ $project->client->contact_name }}</div>
-                        <p class="mb-0">{{ $project->client->contact_email }}</p>
-                        <p>{{ $project->client->contact_phone_number }}</p>
+                        <div class="text-primary">{{ $project->client->name }}</div>
+                        <p class="mb-0">{{ $project->client->email }}</p>
+                        <p>{{ $project->client->phone_number }}</p>
                     </div>
                     <div>
                         <p class="mb-0">{{ $project->client->company_name }}</p>
@@ -27,7 +27,7 @@
                 <div class="card-header">Assigned user</div>
 
                 <div class="card-body">
-                    <p class="mb-0">{{ $project->user->full_name }}</p>
+                    <p class="mb-0">{{ $project->user->fname . ' ' . $project->user->lname }}</p>
                     <p class="mb-0">{{ $project->user->email }}</p>
                     <p class="mb-0">{{ $project->user->phone_number }}</p>
                 </div>
@@ -77,7 +77,7 @@
                                 @foreach($project->tasks as $task)
                                     <tr>
                                         <td><a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a></td>
-                                        <td>{{ $task->user->first_name }}</td>
+                                        <td>{{ $task->user->fname }}</td>
                                         <td>{{ $task->client->company_name }}</td>
                                         <td>{{ $task->deadline }}</td>
                                         <td>{{ $task->status }}</td>
@@ -89,8 +89,8 @@
                                                 <form action="{{ route('tasks.destroy', $task) }}" method="POST"
                                                       onsubmit="return confirm('Are your sure?');"
                                                       style="display: inline-block;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    @method('DELETE')
+                                                    @csrf
                                                     <input type="submit" class="btn btn-sm btn-danger" value="Delete">
                                                 </form>
                                             @endcan

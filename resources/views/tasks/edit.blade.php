@@ -52,9 +52,9 @@
                             <label for="user_id">Assigned user</label>
                             <select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : '' }}"
                                     name="user_id" id="user_id" required>
-                                @foreach($users as $id => $entry)
+                                @foreach($users as $user)
                                     <option
-                                        value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $task->user->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $user->id }}" {{ (old('user_id') ? old('user_id') : $task->user->id ?? '') == $user->id ? 'selected' : '' }}>{{ $user->fname.''.$user->lname }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('user_id'))
@@ -69,9 +69,9 @@
                             <label for="client_id">Assigned client</label>
                             <select class="form-control {{ $errors->has('client_id') ? 'is-invalid' : '' }}"
                                     name="client_id" id="client_id" required>
-                                @foreach($clients as $id => $entry)
+                                @foreach($clients as $client)
                                     <option
-                                        value="{{ $id }}" {{ (old('client_id') ? old('client_id') : $task->client->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $client->id }}" {{ (old('client_id') ? old('client_id') : $task->client->id ?? '') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('client_id'))
@@ -86,9 +86,9 @@
                             <label for="project_id">Assigned project</label>
                             <select class="form-control {{ $errors->has('project_id') ? 'is-invalid' : '' }}"
                                     name="project_id" id="project_id" required>
-                                @foreach($projects as $id => $entry)
+                                @foreach($projects as $project)
                                     <option
-                                        value="{{ $id }}" {{ (old('project_id') ? old('project_id') : $task->project->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $project->id }}" {{ (old('project_id') ? old('project_id') : $task->project->id ?? '') == $project->id ? 'selected' : '' }}>{{ $project->title }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('project_id'))
@@ -124,7 +124,7 @@
             </form>
         </div>
 
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Files</div>
                 <div class="card-body">
@@ -177,6 +177,6 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection

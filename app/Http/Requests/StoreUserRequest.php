@@ -22,10 +22,11 @@ class StoreUserRequest extends FormRequest
   public function rules()
   {
     return [
-      'fname' => 'required|string|min:value',
-      'lname' => 'required|string|min:value',
+      'fname' => 'required|string|min:3',
+      'lname' => 'required|string|min:3',
       'email' => 'required|email|unique:users,email',
-      'password' => 'required|min:8',
+      'password' => 'required|min:8|confirmed',
+      'password_confirmation' => 'required',
       'role' => 'required|in:admin,user'
     ];
   }

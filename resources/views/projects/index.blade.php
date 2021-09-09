@@ -18,6 +18,12 @@
                     {{ session('status') }}
                 </div>
             @endif
+            
+            @if (session('message'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
 
             <div class="d-flex justify-content-end">
                 <form action="{{ route('projects.index') }}" method="GET">
@@ -62,8 +68,8 @@
                             @can('delete')
                                 <form action="{{ route('projects.destroy', $project) }}" method="POST"
                                       onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    @csrf
+                                    @method('DELETE')
                                     <input type="submit" class="btn btn-sm btn-danger" value="Delete">
                                 </form>
                             @endcan

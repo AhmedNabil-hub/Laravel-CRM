@@ -19,6 +19,12 @@
                 </div>
             @endif
 
+            @if (session('message'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('message') }}
+                </div>
+            @endif
+
             <div class="d-flex justify-content-end">
                 <form action="{{ route('tasks.index') }}" method="GET">
                     <div class="form-group row">
@@ -51,21 +57,22 @@
                 @foreach($tasks as $task)
                     <tr>
                         <td><a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a></td>
-                        <td>{{ $task->user->first_name }}</td>
-                        <td>{{ $task->client->company_name }}</td>
+                        <td>{{ $task->user->fname }}</td>
+                        <td>{{ $task->project->client->company_name }}</td>
                         <td>{{ $task->deadline }}</td>
                         <td>{{ $task->status }}</td>
                         <td>
                             <a class="btn btn-sm btn-info" href="{{ route('tasks.edit', $task) }}">
                                 Edit
                             </a>
-                            @can('delete')
-                                <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-sm btn-danger" value="Delete">
-                                </form>
-                            @endcan
+                            {{-- @can('delete')
+
+                            @endcan --}}
+                            <form action="{{ route('tasks.destroy', $task) }}" method="POST" onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
+                              @method('DELETE')
+                              @csrf
+                              <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                          </form>
                         </td>
                     </tr>
                 @endforeach

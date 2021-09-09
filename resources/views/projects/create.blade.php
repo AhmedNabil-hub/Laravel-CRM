@@ -44,8 +44,8 @@
                 <div class="form-group">
                     <label for="user_id">Assigned user</label>
                     <select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id" required>
-                        @foreach($users as $id => $entry)
-                            <option value="{{ $id }}" {{ old('user_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        @foreach($users as $user)
+                            <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>{{ $user->fname . ' ' . $user->lname }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('user_id'))
@@ -59,8 +59,8 @@
                 <div class="form-group">
                     <label for="client_id">Assigned client</label>
                     <select class="form-control {{ $errors->has('client_id') ? 'is-invalid' : '' }}" name="client_id" id="client_id" required>
-                        @foreach($clients as $id => $entry)
-                            <option value="{{ $id }}" {{ old('client_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                        @foreach($clients as $client)
+                            <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('client_id'))
@@ -74,10 +74,12 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status" required>
-                        @foreach(App\Models\Project::STATUS as $status)
+                        {{-- @foreach(App\Models\Project::STATUS as $status)
                             <option
                                 value="{{ $status }}" {{ old('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
-                        @endforeach
+                        @endforeach --}}
+                        <option value="{{ App\Models\Project::STATUS[0] }}" selected>{{ ucfirst(App\Models\Project::STATUS[0]) }}
+                        </option>
                     </select>
                     @if($errors->has('status'))
                         <div class="invalid-feedback">

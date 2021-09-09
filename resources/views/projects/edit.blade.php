@@ -52,9 +52,9 @@
                             <label for="user_id">Assigned user</label>
                             <select class="form-control {{ $errors->has('user_id') ? 'is-invalid' : '' }}"
                                     name="user_id" id="user_id" required>
-                                @foreach($users as $id => $entry)
+                                @foreach($users as $user)
                                     <option
-                                        value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $project->user->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $user->id }}" {{ (old('user_id') ? old('user_id') : $project->user->id ?? '') == $user->id ? 'selected' : '' }}>{{ $user->fname . ' ' . $user->lname }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('user_id'))
@@ -69,9 +69,9 @@
                             <label for="client_id">Assigned client</label>
                             <select class="form-control {{ $errors->has('client_id') ? 'is-invalid' : '' }}"
                                     name="client_id" id="client_id" required>
-                                @foreach($clients as $id => $entry)
+                                @foreach($clients as $client)
                                     <option
-                                        value="{{ $id }}" {{ (old('client_id') ? old('client_id') : $project->client->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $client->id }}" {{ (old('client_id') ? old('client_id') : $project->client->id ?? '') == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
                                 @endforeach
                             </select>
                             @if($errors->has('client_id'))
@@ -107,7 +107,7 @@
             </form>
         </div>
 
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Files</div>
                 <div class="card-body">
@@ -163,6 +163,6 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 @endsection

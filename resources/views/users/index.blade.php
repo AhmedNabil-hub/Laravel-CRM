@@ -13,6 +13,18 @@
         <div class="card-header">Users list</div>
 
         <div class="card-body">
+          @if (session('errors'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('errors') }}
+            </div>
+          @endif
+
+          @if (session('message'))
+            <div class="alert alert-danger" role="alert">
+                {{ session('message') }}
+            </div>
+          @endif
+
             <div class="d-flex justify-content-end">
                 <form action="{{ route('users.index') }}" method="GET">
                     <div class="form-group">
@@ -33,9 +45,9 @@
                     <th>Last name</th>
                     <th>Email</th>
                     <th>Role</th>
-                    @if ($withDeleted)
+                    {{-- @if ($withDeleted)
                         <th>Deleted at</th>
-                    @endif
+                    @endif --}}
                     <th></th>
                 </tr>
                 </thead>
@@ -43,24 +55,20 @@
                 @foreach($users as $user)
                     <tr>
                         <td>{{ $user->id }}</td>
-                        <td>{{ $user->first_name }}</td>
-                        <td>{{ $user->last_name }}</td>
+                        <td>{{ $user->fname }}</td>
+                        <td>{{ $user->lname }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>
-                            @foreach($user->roles as $role)
-                                {{ $role->name }}
-                            @endforeach
-                        </td>
-                        @if ($withDeleted)
+                        <td>{{ $user->role }}</td>
+                        {{-- @if ($withDeleted)
                             <td>{{ $user->deleted_at ?? 'Not deleted' }}</td>
-                        @endif
+                        @endif --}}
                         <td>
                             <a class="btn btn-sm btn-info" href="{{ route('users.edit', $user) }}">
                                 Edit
                             </a>
                             <form action="{{ route('users.destroy', $user) }}" method="POST" onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
-                                <input type="hidden" name="_method" value="DELETE">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                @method('DELETE')
+                                @csrf
                                 <input type="submit" class="btn btn-sm btn-danger" value="Delete">
                             </form>
                         </td>

@@ -24,7 +24,7 @@ class StoreProjectRequest extends FormRequest
       'title' => 'required|string|min:3',
       'description' => 'required|string|min:3',
       'deadline' => 'required|date',
-      'status' => 'required|in:completed,open,cancelled,in progress,blocked',
+      'status' => 'required|in:open',
       'user_id' => 'required|exists:users,id',
       'client_id' => 'required|exists:clients,id'
     ];

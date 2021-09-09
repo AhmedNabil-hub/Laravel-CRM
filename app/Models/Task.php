@@ -21,7 +21,9 @@ class Task extends Model
     'project_id'
   ];
 
-  protected $with = ['user', 'project.client'];
+  const STATUS = ['open', 'waiting client', 'pending', 'in progress', 'blocked', 'closed'];
+
+  // protected $with = ['user', 'project.client'];
 
   public function user()
   {
