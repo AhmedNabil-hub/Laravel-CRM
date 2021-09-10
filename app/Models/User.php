@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Task;
 use App\Models\Project;
+use App\Traits\Filter;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -12,14 +13,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-  use HasApiTokens, HasFactory, Notifiable;
+  use HasApiTokens, HasFactory, Notifiable, Filter;
 
 
   protected $fillable = [
     'fname',
     'lname',
     'email',
-    'password'
+    'password',
+    'status'
   ];
 
 
@@ -34,6 +36,7 @@ class User extends Authenticatable
   ];
 
   const ROLE = ['user', 'admin'];
+  const STATUS = ['active', 'inactive'];
 
   public function tasks()
   {

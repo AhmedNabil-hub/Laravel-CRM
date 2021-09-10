@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Filter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-    use HasFactory;
+    use HasFactory, Filter;
 
     protected $fillable = [
       'name',
@@ -17,8 +18,11 @@ class Client extends Model
       'company_address',
       'company_city',
       'company_zip',
-      'company_vat'
+      'company_vat',
+      'status'
     ];
+
+    const STATUS = ['active', 'inactive'];
 
     public function projects()
   {

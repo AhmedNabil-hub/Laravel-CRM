@@ -25,17 +25,22 @@
             </div>
           @endif
 
-            <div class="d-flex justify-content-end">
-                <form action="{{ route('users.index') }}" method="GET">
-                    <div class="form-group">
-                        <label for="deleted" class="col-form-label">Show deleted:</label>
-                            <select class="form-control" name="deleted" id="deleted" onchange="this.form.submit()">
-                                <option value="false" {{ request('deleted') == 'false' ? 'selected' : '' }}>No</option>
-                                <option value="true" {{ request('deleted') == 'true' ? 'selected' : '' }}>Yes</option>
-                            </select>
+          <div class="d-flex justify-content-end">
+            <form action="{{ route('users.index') }}" method="GET">
+                <div class="form-group row">
+                    <label for="status" class="col-form-label">Status:</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" name="status" id="status" onchange="this.form.submit()">
+                            <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>All</option>
+                            @foreach(App\Models\User::STATUS as $status)
+                                <option
+                                    value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
 
             <table class="table table-responsive-sm table-striped">
                 <thead>
@@ -45,6 +50,7 @@
                     <th>Last name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Status</th>
                     {{-- @if ($withDeleted)
                         <th>Deleted at</th>
                     @endif --}}
@@ -59,6 +65,7 @@
                         <td>{{ $user->lname }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->role }}</td>
+                        <td>{{ $user->status }}</td>
                         {{-- @if ($withDeleted)
                             <td>{{ $user->deleted_at ?? 'Not deleted' }}</td>
                         @endif --}}

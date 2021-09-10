@@ -78,7 +78,7 @@
                                     <tr>
                                         <td><a href="{{ route('tasks.show', $task) }}">{{ $task->title }}</a></td>
                                         <td>{{ $task->user->fname }}</td>
-                                        <td>{{ $task->client->company_name }}</td>
+                                        <td>{{ $project->client->company_name }}</td>
                                         <td>{{ $task->deadline }}</td>
                                         <td>{{ $task->status }}</td>
                                         <td>

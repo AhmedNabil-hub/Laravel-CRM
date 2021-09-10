@@ -26,7 +26,8 @@ class UpdateUserRequest extends FormRequest
       'fname' => 'required|string|min:3',
       'lname' => 'required|string|min:3',
       'email' => 'required|email|unique:users,email,'.$this->route('user')->id.',id',
-      'role' => 'required|in:admin,user'
+      'role' => 'required|in:admin,user',
+      'status' => 'in:inactive,active'
     ];
   }
 }

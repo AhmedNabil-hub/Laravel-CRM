@@ -27,7 +27,8 @@ class UpdateClientRequest extends FormRequest
       'company_address' => 'required|string',
       'company_city' => 'required|string',
       'company_zip' => 'required|numeric',
-      'company_vat' => 'required|numeric|unique:clients,company_vat,'.$this->route('client')->id.',id'
+      'company_vat' => 'required|numeric|unique:clients,company_vat,'.$this->route('client')->id.',id',
+      'status' => 'in:inactive,active'
     ];
   }
 }

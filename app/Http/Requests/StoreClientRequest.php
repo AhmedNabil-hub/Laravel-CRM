@@ -27,7 +27,8 @@ class StoreClientRequest extends FormRequest
       'company_address' => 'required|string',
       'company_city' => 'required|string',
       'company_zip' => 'required|numeric',
-      'company_vat' => 'required|numeric|unique:clients,company_vat'
+      'company_vat' => 'required|numeric|unique:clients,company_vat',
+      'status' => 'in:inactive,active'
     ];
   }
 }

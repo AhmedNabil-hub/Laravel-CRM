@@ -14,6 +14,7 @@ class CreateClientsTable extends Migration
       $table->string('name');
       $table->string('email')->unique();
       $table->string('phone_number')->unique();
+      $table->string('status')->default('inactive');
 
       $table->string('company_name')->unique();
       $table->string('company_address');

@@ -59,6 +59,23 @@
                   <span class="help-block"> </span>
               </div>
 
+              <div class="form-group">
+                <label for="status">Status</label>
+                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status"
+                        id="status" required>
+                    @foreach(App\Models\User::STATUS as $status)
+                        <option
+                            value="{{ $status }}" {{ (old('status') ? old('status') : $user->status ?? '') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <span class="help-block"> </span>
+            </div>
+
                 <div class="form-group">
                     <button class="btn btn-primary" type="submit">
                         Save

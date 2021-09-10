@@ -29,6 +29,10 @@
               <span class="font-weight-bold mr-4">Email</span>
               <p class="mb-0">{{ $user->email }}</p>
             </div>
+            <div class="d-flex align-items-center">
+              <span class="font-weight-bold mr-4">Status</span>
+              <p class="mb-0">{{ $user->status }}</p>
+            </div>
           </div>
         </div>
     </div>
