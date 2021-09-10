@@ -47,4 +47,9 @@ class User extends Authenticatable
   {
     return $this->hasMany(Project::class);
   }
+
+  public function getFullNameAttribute()
+  {
+    return ($this->fname . ' ' . $this->lname);
+  }
 }

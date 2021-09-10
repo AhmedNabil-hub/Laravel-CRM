@@ -22,10 +22,19 @@ class Client extends Model
       'status'
     ];
 
+    protected $casts = [
+      'created_at' => 'date:Y-M-D'
+    ];
+
     const STATUS = ['active', 'inactive'];
 
     public function projects()
   {
     return $this->hasMany(Project::class);
+  }
+
+  public function getFullNameAttribute()
+  {
+    return ($this->fname . ' ' . $this->lname);
   }
 }
