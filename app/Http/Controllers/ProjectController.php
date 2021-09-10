@@ -7,14 +7,13 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
 
   public function index()
   {
-    $projects = Project::paginate(20);
+    $projects = Project::filterStatus(request('status'))->paginate(20);
 
     return view('projects.index', compact('projects'));
   }

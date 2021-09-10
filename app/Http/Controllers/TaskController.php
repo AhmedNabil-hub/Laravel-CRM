@@ -8,14 +8,13 @@ use App\Models\Client;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
 
   public function index()
   {
-    $tasks = Task::paginate(20);
+    $tasks = Task::filterStatus(request('status'))->paginate(20);
 
     return view('tasks.index', compact('tasks'));
   }

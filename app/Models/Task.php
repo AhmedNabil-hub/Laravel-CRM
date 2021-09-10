@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Project;
+use App\Traits\Filter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
-  use HasFactory;
+  use HasFactory, Filter;
 
   protected $fillable = [
     'title',

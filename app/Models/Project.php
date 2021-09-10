@@ -7,10 +7,11 @@ use App\Models\User;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\Filter;
 
 class Project extends Model
 {
-  use HasFactory;
+  use HasFactory, Filter;
 
   protected $fillable = [
     'title',

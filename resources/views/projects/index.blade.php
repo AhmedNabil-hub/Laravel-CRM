@@ -18,7 +18,7 @@
                     {{ session('status') }}
                 </div>
             @endif
-            
+
             @if (session('message'))
                 <div class="alert alert-danger" role="alert">
                     {{ session('message') }}
@@ -31,7 +31,7 @@
                         <label for="status" class="col-form-label">Status:</label>
                         <div class="col-sm-8">
                             <select class="form-control" name="status" id="status" onchange="this.form.submit()">
-                                <option value="all" {{ request('filter') == 'all' ? 'selected' : '' }}>All</option>
+                                <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>All</option>
                                 @foreach(App\Models\Project::STATUS as $status)
                                     <option
                                         value="{{ $status }}" {{ request('status') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
