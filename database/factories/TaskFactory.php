@@ -21,8 +21,11 @@ class TaskFactory extends Factory
      */
     public function definition()
     {
-        return [
-            //
-        ];
+      return [
+        'title' => $this->faker->name(),
+        'deadline' => $this->faker->date(),
+        'status' => $this->faker->randomElement(Task::STATUS),
+        'description' => $this->faker->paragraph()
+    ];
     }
 }
