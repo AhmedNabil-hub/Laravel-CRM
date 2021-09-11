@@ -11,6 +11,11 @@ use App\Models\User;
 class ProjectController extends Controller
 {
 
+  public function __construct()
+  {
+    $this->authorizeResource(Project::class, 'project');
+  }
+
   public function index()
   {
     $projects = Project::filterStatus(request('status'))->paginate(20);

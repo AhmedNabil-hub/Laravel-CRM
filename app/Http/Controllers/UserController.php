@@ -11,6 +11,11 @@ use App\Http\Requests\UpdateUserPasswordRequest;
 class UserController extends Controller
 {
 
+  public function __construct()
+  {
+    $this->authorizeResource(User::class, 'user');
+  }
+
   public function index()
   {
     $users = User::filterStatus(request('status'))->paginate(20);

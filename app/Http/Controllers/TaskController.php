@@ -12,6 +12,11 @@ use App\Models\User;
 class TaskController extends Controller
 {
 
+  public function __construct()
+  {
+    $this->authorizeResource(Task::class, 'task');
+  }
+
   public function index()
   {
     $tasks = Task::filterStatus(request('status'))->paginate(20);
