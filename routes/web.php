@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClientController as ApiClientController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,5 +23,7 @@ Route::middleware(['auth'])->group(function () {
 
   Route::post('users/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 });
+
+Route::get('clients', [ApiClientController::class, 'index'])->prefix('api/');
 
 
