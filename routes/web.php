@@ -24,6 +24,6 @@ Route::middleware(['auth'])->group(function () {
   Route::post('users/updatePassword', [UserController::class, 'updatePassword'])->name('users.updatePassword');
 });
 
-Route::get('clients', [ApiClientController::class, 'index'])->prefix('api/');
+Route::get('api/clients', [ApiClientController::class, 'index']);
 
 
